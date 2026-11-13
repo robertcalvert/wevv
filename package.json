@@ -1,0 +1,46 @@
+{
+    "name": "wevv",
+    "version": "0.1.0",
+    "description": "A fluent, type-safe HTML builder for TypeScript.",
+    "license": "MIT",
+    "repository": "robertcalvert/wevv",
+    "keywords": [
+        "html",
+        "builder",
+        "typescript",
+        "template",
+        "fluent"
+    ],
+    "type": "module",
+    "engines": {
+        "node": ">=20"
+    },
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        }
+    },
+    "files": [
+        "dist",
+        "README.md",
+        "LICENSE"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "clean": "rimraf dist",
+        "prebuild": "npm run clean",
+        "prepack": "npm run build",
+        "example": "tsx --watch examples/express.ts"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.6",
+        "express": "^5.3.0",
+        "nodemon": "^3.1.14",
+        "rimraf": "^6.1.4",
+        "tsx": "^4.23.15",
+        "typescript": "^7.0.2"
+    }
+}
