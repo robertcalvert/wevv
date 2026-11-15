@@ -1,5 +1,5 @@
 {
-    "name": "wevv",
+    "name": "@flob.io/wevv",
     "version": "0.1.0",
     "description": "A fluent, type-safe HTML builder for TypeScript.",
     "license": "MIT",

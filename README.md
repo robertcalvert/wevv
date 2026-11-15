@@ -5,7 +5,7 @@
 Wevv lets you compose HTML by weaving elements together with a clean, chainable API. No template strings, no DSL, just TypeScript.
 
 ```ts
-import { w } from "wevv";
+import { w } from "@flob.io/wevv";
 
 const page = w.html
   .lang("en")
@@ -43,7 +43,7 @@ If that happens to suit your workflow too, welcome aboard.
 ## Installation
 
 ```bash
-npm install wevv
+npm install @flob.io/wevv
 ```
 
 Works with any TypeScript project on Node 20+. No configuration, no plugins, no build step required.
@@ -52,7 +52,7 @@ Works with any TypeScript project on Node 20+. No configuration, no plugins, no 
 
 ```ts
 import express from "express";
-import { w, ElementChild } from "wevv";
+import { w, ElementChild } from "@flob.io/wevv";
 
 const app = express();
 
