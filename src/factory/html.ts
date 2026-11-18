@@ -7,6 +7,8 @@ import { ContainerBuilder } from "../builders/container.js";
 import { HtmlBuilder } from "../builders/structural.js";
 import { AnchorBuilder } from "../builders/text.js";
 
+import { RawBuilder } from "../builders/raw.js";
+
 // Fluent HTML builder factory
 export const w = {
     // Document
@@ -34,4 +36,7 @@ export const w = {
     // Separators
     get br() { return new ElementBuilder("br"); },
     get hr() { return new ElementBuilder("hr"); },
+
+    // Trusted raw HTML
+    raw: (html: string) => new RawBuilder(html)
 };
