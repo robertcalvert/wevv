@@ -4,9 +4,10 @@
 import { ElementBuilder } from "../builders/element.js";
 import { ContainerBuilder } from "../builders/container.js";
 
-import { HtmlBuilder } from "../builders/structural.js";
+import { HtmlBuilder } from "../builders/document.js";
 import { AnchorBuilder } from "../builders/text.js";
 
+import { FragmentBuilder } from "../builders/structural.js";
 import { RawBuilder } from "../builders/raw.js";
 
 // Fluent HTML builder factory
@@ -18,6 +19,7 @@ export const w = {
     get body() { return new ContainerBuilder("body"); },
 
     // Structural
+    get fragment() { return new FragmentBuilder(); },
     get div() { return new ContainerBuilder("div"); },
 
     // Text

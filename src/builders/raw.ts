@@ -13,7 +13,7 @@ export class RawBuilder implements ElementNode {
     }
 
     // Renders the raw HTML verbatim
-    render() {
+    render(): string {
         return this.html;
     }
 }

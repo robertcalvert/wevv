@@ -33,7 +33,7 @@ export class ContainerBuilder<T extends ContainerTag> extends ElementBuilder<T> 
 }
 
 // Adds child nodes to a target collection
-function appendChildren(target: ElementChild[], children: ElementChild[]): void {
+export function appendChildren(target: ElementChild[], children: ElementChild[]): void {
     for (const child of children) {
         if (child === false || child == null) continue; // Drop conditionals
 
