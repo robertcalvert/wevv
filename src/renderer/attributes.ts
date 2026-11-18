@@ -9,7 +9,12 @@ export function renderAttributes(attrs: Attributes): string {
     let result = "";
 
     for (const [key, value] of Object.entries(attrs)) {
-        if (value == null || value === false) continue;
+        // Skip null, undefined, false, and empty or whitespace strings
+        if (
+            value == null ||
+            value === false ||
+            (typeof value === "string" && !value.trim())
+        ) continue;
 
         result += value === true
             ? ` ${key}`
