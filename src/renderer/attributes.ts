@@ -2,6 +2,7 @@
 // See LICENSE file in the project root for full license information.
 
 import type { Attributes } from "../core/attributes.js";
+
 import { escapeAttr } from "../core/escaping.js";
 
 // Serializes attributes into an HTML compatible string

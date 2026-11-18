@@ -8,11 +8,7 @@ import { isElementNode } from "../core/node.js";
 
 import { ElementBuilder } from "./element.js";
 
-import {
-    renderOpeningTag,
-    renderClosingTag
-} from "../renderer/element.js";
-
+import { renderOpeningTag, renderClosingTag } from "../renderer/element.js";
 import { renderChildren } from "../renderer/children.js";
 
 // Builder for HTML container elements
@@ -22,13 +18,7 @@ export class ContainerBuilder<T extends ContainerTag> extends ElementBuilder<T> 
 
     // Adds child nodes to the container
     append(...children: ElementChild[]): this {
-        for (const child of children) {
-            if (child === false || child == null) continue; // Drop conditionals
-            this.children.push(
-                isElementNode(child) ? child : String(child)
-            );
-        }
-
+        appendChildren(this.children, children);
         return this;
     }
 
@@ -39,5 +29,19 @@ export class ContainerBuilder<T extends ContainerTag> extends ElementBuilder<T> 
             renderChildren(this.children) +
             renderClosingTag(this.tag)
         );
+    }
+}
+
+// Adds child nodes to a target collection
+function appendChildren(target: ElementChild[], children: ElementChild[]): void {
+    for (const child of children) {
+        if (child === false || child == null) continue; // Drop conditionals
+
+        if (Array.isArray(child)) {
+            appendChildren(target, child); // Recurse into nested arrays
+            continue;
+        }
+
+        target.push(isElementNode(child) ? child : String(child));
     }
 }

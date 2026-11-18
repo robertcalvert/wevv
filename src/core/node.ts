@@ -6,11 +6,12 @@ export interface ElementNode {
     render(): string;
 }
 
-// Represents a valid child node
+// Represents a value that can be appended as a child
 export type ElementChild =
     | string
     | number
     | ElementNode
+    | ElementChild[]
     | false
     | null
     | undefined;
