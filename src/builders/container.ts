@@ -23,6 +23,7 @@ export class ContainerBuilder<T extends ContainerTag> extends ElementBuilder<T> 
     // Adds child nodes to the container
     append(...children: ElementChild[]): this {
         for (const child of children) {
+            if (child === false || child == null) continue; // Drop conditionals
             this.children.push(
                 isElementNode(child) ? child : String(child)
             );

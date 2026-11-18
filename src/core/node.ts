@@ -7,7 +7,13 @@ export interface ElementNode {
 }
 
 // Represents a valid child node
-export type ElementChild = string | number | ElementNode;
+export type ElementChild =
+    | string
+    | number
+    | ElementNode
+    | false
+    | null
+    | undefined;
 
 // Checks whether a value implements the ElementNode interface
 export function isElementNode(value: unknown): value is ElementNode {
