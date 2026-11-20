@@ -7,7 +7,7 @@ import { isElementNode } from "../core/node.js";
 import { escapeText } from "../core/escaping.js";
 
 // Renders child nodes into an HTML string
-export function renderChildren(children: ElementChild[]): string {
+export function renderChildren(children: readonly ElementChild[]): string {
     let result = "";
 
     for (const node of children) {
