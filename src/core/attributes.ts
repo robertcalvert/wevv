@@ -1,13 +1,18 @@
 // Copyright (c) Robert Calvert. MIT License.
 // See LICENSE file in the project root for full license information.
 
-// Supported HTML attribute values
+// Supported attribute values
 export type AttributeValue =
     | string
-    | number
-    | boolean
-    | null
-    | undefined;
+    | true;
 
-// Map of HTML attribute names to their values
+// Map of attribute names to their values
 export type Attributes = Record<string, AttributeValue>;
+
+// Accepted values when setting an attribute
+export type AttributeInput =
+    | AttributeValue
+    | false
+    | null
+    | undefined
+    | string[];

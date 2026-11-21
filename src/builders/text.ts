@@ -5,7 +5,7 @@ import type { Maybe } from "../core/maybe.js";
 
 import { ContainerBuilder } from "./container.js";
 
-// Builder for HTML anchor elements
+// Builder for anchor elements
 export class AnchorBuilder extends ContainerBuilder<"a"> {
     constructor() {
         super("a");
@@ -13,7 +13,6 @@ export class AnchorBuilder extends ContainerBuilder<"a"> {
 
     // Sets the anchors href attribute
     href(value: Maybe<string>): this {
-        this.attrs.href = value;
-        return this;
+        return this.attribute("href", value)
     }
 }

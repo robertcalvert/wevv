@@ -10,8 +10,6 @@ export function renderAttributes(attrs: Attributes): string {
     let result = "";
 
     for (const [key, value] of Object.entries(attrs)) {
-        if (value == null || value === false) continue;
-
         result += value === true
             ? ` ${key}`
             : ` ${key}="${escapeAttr(String(value))}"`;

@@ -3,7 +3,7 @@
 
 import type { HtmlTag } from "../core/tags.js";
 import type { ElementNode } from "../core/node.js";
-import type { Attributes } from "../core/attributes.js";
+import type { AttributeInput, Attributes } from "../core/attributes.js";
 
 import type { Maybe } from "../core/maybe.js";
 
@@ -15,7 +15,7 @@ export type ClassValue = Maybe<
     | ClassValue[]
 >;
 
-// Base builder for individual HTML elements
+// Base builder for individual elements
 export class ElementBuilder<T extends HtmlTag> implements ElementNode {
     // Attributes assigned to this element
     protected attrs: Attributes = {};
@@ -25,27 +25,23 @@ export class ElementBuilder<T extends HtmlTag> implements ElementNode {
 
     // Specifies a unique id for an element
     id(value: Maybe<string>): this {
-        this.attrs.id = value;
-        return this;
+        return this.attribute("id", value);
     }
 
     // Specifies the language of the elements content
     lang(value: Maybe<string>): this {
-        this.attrs.lang = value;
-        return this;
+        return this.attribute("lang", value);
     }
 
     // Specifies one or more class names for an element
     class(...values: ClassValue[]): this {
         // Collect valid class names into a flat array
-        const classes: string[] = [];
+        const tokens: string[] = [];
 
         // Recursively process each value
         const add = (value: ClassValue): void => {
             if (typeof value === "string") {
-                // Trim whitespace and ignore empty strings
-                const trimmed = value.trim();
-                if (trimmed) classes.push(trimmed);
+                tokens.push(value);
 
             } else if (Array.isArray(value)) {
                 value.forEach(add); // Recurse into nested arrays
@@ -55,15 +51,33 @@ export class ElementBuilder<T extends HtmlTag> implements ElementNode {
         // Process all the class values
         values.forEach(add);
 
-        // Join all valid class names into a single space separated string
-        const result = classes.join(" ");
+        return this.attribute("class", tokens);
+    }
 
-        // Omit empty (rather than class="")
-        if (result) {
-            this.attrs.class = result;
-        } else {
-            delete this.attrs.class;
+    // Sets an attribute on the element
+    protected attribute(name: string, value: AttributeInput): this {
+        // Remove the attribute when the value is null, undefined or false
+        if (value == null || value === false) {
+            delete this.attrs[name];
+            return this;
         }
+
+        // Join string values into a single space separated string
+        if (Array.isArray(value)) {
+            value = value
+                .flatMap(v => typeof v === "string" ? [v.trim()] : [])
+                .filter(Boolean)
+                .join(" ");
+
+            // Remove the attribute when no valid values remain
+            if (!value) {
+                delete this.attrs[name];
+                return this;
+            }
+        }
+
+        // Store the attribute value
+        this.attrs[name] = value;
 
         return this;
     }
